@@ -22,7 +22,14 @@ const userSchema=new Schema({
     isAdmin:{
         type:Boolean,
         default:false
+    },
+    isEnabled:{
+        type:Boolean,
+        default:true
     }
 })
+
+
+
 
 module.exports=mongoose.model("User",userSchema)

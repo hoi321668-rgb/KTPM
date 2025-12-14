@@ -26,6 +26,15 @@ export const getAllUsers=async()=>{
     }
 }
 
+export const getAllUsersExcludingAdmins=async()=>{
+    try {
+        const res=await axiosi.get('/users?excludeAdmins=true')
+        return res.data
+    } catch (error) {
+        throw error.response.data
+    }
+}
+
 export const toggleUserStatus=async(userId)=>{
     try {
         const res=await axiosi.patch(`/users/${userId}/toggle-status`)

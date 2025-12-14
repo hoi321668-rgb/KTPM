@@ -67,49 +67,32 @@
   cd mern-ecommerce
 ```
 
-### Install dependencies for frontend and backend separately
-**Tip:** To efficiently install dependencies for both frontend and backend simultaneously, use split terminals.
-
-Install frontend dependencies
-```bash
-cd frontend
-npm install
-```
-
-Install backend dependencies
-
-```bash
-cd backend
-npm install
-```
-
-
 ### Environment Variables
 **Backend**
 - Create a `.env` file in the `backend` directory.
 - Add the following variables with appropriate values
 ```bash
-# Database connection string
-MONGO_URI="mongodb://localhost:27017/your-database-name"
+# ===== DATABASE CONFIG =====
+MONGO_URI=mongodb://localhost:27017/ecommerce_db
 
-# Frontend URL (adjust if needed)
-ORIGIN="http://localhost:3000"
+# ===== FRONTEND CONFIG =====
+ORIGIN=http://localhost:3000
 
-# Email credentials for sending password resets and OTPs
-EMAIL="your-email@example.com"
-PASSWORD="your-email-password"
+# ===== EMAIL CONFIG (email và passkey để gửi mail otp) =====
+EMAIL=
+PASSWORD=
 
-# Token and cookie expiration settings
-LOGIN_TOKEN_EXPIRATION="30d"  # Days
-OTP_EXPIRATION_TIME="120000"  # Milliseconds
-PASSWORD_RESET_TOKEN_EXPIRATION="2m"  # Minutes
-COOKIE_EXPIRATION_DAYS="30"    # Days
+# ===== TOKEN & COOKIE =====
+LOGIN_TOKEN_EXPIRATION=30d
+OTP_EXPIRATION_TIME=120000
+PASSWORD_RESET_TOKEN_EXPIRATION=2m
+COOKIE_EXPIRATION_DAYS=30
 
-# Secret key for jwt security
-SECRET_KEY="your-secret-key"
+# ===== JWT SECURITY =====
+SECRET_KEY=my-super-secret-key
 
-# Environment (production/development)
-PRODUCTION="false" # Initially set to false for development
+# ===== ENVIRONMENT =====
+PRODUCTION=false
 ```
 
 **Frontend**
@@ -123,6 +106,17 @@ REACT_APP_BASE_URL="http://localhost:8000"
 **Important**
 - Replace all placeholders (e.g., your_database_name, your_email) with your actual values.
 - Exclude the `.env` file from version control to protect sensitive information.
+
+### Run with docker-compose
+
+  To run this with docker-compose please run the following commands.
+  ***Please make sure that docker and docker-compose is installed in your system.***
+  
+  ```
+   > docker-compose up -d --build
+  ```
+  - Go to your browser and type `http://localhost:3000` and the whole project is ready to use.
+  - ***if you initialy encoutered connection refused error please wait for few seconds and relod the page.**
 
 ### Data seeding
 - **Get started quickly with pre-populated data**: Populate your database with sample users, products, reviews, and carts, enabling you to test functionalities without manual data entry.

@@ -15,7 +15,7 @@ export const AdminUsers = () => {
   const userToggleStatus = useSelector(selectUserToggleStatus)
 
   useEffect(() => {
-    dispatch(getAllUsersAsync())
+    dispatch(getAllUsersAsync(true))
   }, [dispatch])
 
   useEffect(() => {
@@ -31,15 +31,23 @@ export const AdminUsers = () => {
   }
 
   const columns = [
-    { field: '_id', headerName: 'ID', width: 220 },
-    { field: 'name', headerName: 'Name', width: 170 },
-    { field: 'email', headerName: 'Email', width: 200 },
-    { field: 'isAdmin', headerName: 'Admin', width: 130, 
-      renderCell: (params) => (
-        <Typography>{params.row.isAdmin ? 'Yes' : 'No'}</Typography>
+    {
+      field: '_id', headerName: 'ID', minWidth: 220, flex: 1, renderCell: (params) => (
+        <Typography sx={{ whiteSpace: 'normal', wordBreak: 'break-all' }}>{params.value}</Typography>
       )
     },
-    { field: 'isEnabled', headerName: 'Status', width: 130,
+    {
+      field: 'name', headerName: 'Name', minWidth: 170, flex: 1, renderCell: (params) => (
+        <Typography sx={{ whiteSpace: 'normal' }}>{params.value}</Typography>
+      )
+    },
+    {
+      field: 'email', headerName: 'Email', minWidth: 200, flex: 1.5, renderCell: (params) => (
+        <Typography sx={{ whiteSpace: 'normal', wordBreak: 'break-all' }}>{params.value}</Typography>
+      )
+    },
+    {
+      field: 'isEnabled', headerName: 'Status', minWidth: 120, flex: 0.6,
       renderCell: (params) => (
         <Typography color={params.row.isEnabled ? 'green' : 'error'}>
           {params.row.isEnabled ? 'Enabled' : 'Disabled'}
@@ -49,9 +57,10 @@ export const AdminUsers = () => {
     {
       field: 'actions',
       headerName: 'Actions',
-      width: 150,
+      minWidth: 160,
+      flex: 0.8,
       renderCell: (params) => (
-        <Button 
+        <Button
           variant="contained"
           color={params.row.isEnabled ? 'error' : 'success'}
           onClick={() => handleToggleStatus(params.row._id)}
@@ -74,8 +83,7 @@ export const AdminUsers = () => {
 
   return (
     <Stack p={3}>
-      <Typography variant="h4" fontWeight={500} mb={3}>User Management</Typography>
-      <Paper elevation={3} sx={{ height: 'calc(100vh - 12rem)', width: '100%' }}>
+      <Paper elevation={3} sx={{ height: 'calc(100vh - 6rem)', width: '100%' }}>
         <DataGrid
           rows={users}
           columns={columns}
@@ -83,6 +91,11 @@ export const AdminUsers = () => {
           pageSize={10}
           rowsPerPageOptions={[10]}
           disableSelectionOnClick
+          sx={{
+            '& .MuiDataGrid-cell': { whiteSpace: 'normal', wordBreak: 'break-word', lineHeight: '1.2', py: 1 },
+            '& .MuiDataGrid-columnHeaderTitle': { whiteSpace: 'normal' },
+            '& .MuiDataGrid-row': { alignItems: 'flex-start' }
+          }}
         />
       </Paper>
     </Stack>

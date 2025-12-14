@@ -54,6 +54,12 @@ exports.login=async(req,res)=>{
         // if exists and password matches the hash
         if(existingUser && (await bcrypt.compare(req.body.password,existingUser.password))){
 
+            // check if account is enabled
+            if (existingUser.isEnabled === false) {
+                res.clearCookie('token');
+                return res.status(403).json({message: 'Your account has been disabled. Please contact support for assistance.'})
+            }
+
             // getting secure user info
             const secureInfo=sanitizeUser(existingUser)
 
